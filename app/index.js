@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { useNavigation } from "expo-router";
 
 import BaseLayout from "../components/BaseLayout";
@@ -14,7 +14,6 @@ export default function Index() {
 
   return (
     <BaseLayout>
-      <Text>This is the index page</Text>
       <NoteList />
     </BaseLayout>
   );
