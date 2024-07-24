@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { useNavigation } from "expo-router";
 
 import BaseLayout from "../components/BaseLayout";
-import Note from '../components/Note';
+import NoteList from "../components/NoteList";
 
 export default function Index() {
   const navigation = useNavigation();
@@ -15,7 +15,7 @@ export default function Index() {
   return (
     <BaseLayout>
       <Text>This is the index page</Text>
-      <Note />
+      <NoteList />
     </BaseLayout>
   );
 }
