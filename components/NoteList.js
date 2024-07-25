@@ -11,6 +11,7 @@ export default function NoteList({ notesData, title }) {
         <FlatList
           data={notesData}
           numColumns={3}
+          scrollEnabled={false}
           columnWrapperStyle={{gap: 16}}
           renderItem={({ item, index }) => <Note style={styles.note} data={item} />}
           keyExtractor={(item, index) => index.toString()}
