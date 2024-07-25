@@ -1,6 +1,6 @@
 import { FlatList, View, Text, StyleSheet } from "react-native";
 
-import Note from "./Note";
+import NoteCard from "./NoteCard";
 
 export default function NoteList({ notesData, title }) {
 
@@ -13,7 +13,7 @@ export default function NoteList({ notesData, title }) {
           numColumns={3}
           scrollEnabled={false}
           columnWrapperStyle={{gap: 16}}
-          renderItem={({ item, index }) => <Note style={styles.note} data={item} />}
+          renderItem={({ item, index }) => <NoteCard style={styles.note} data={item} />}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>

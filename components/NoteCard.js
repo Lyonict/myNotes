@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { router } from 'expo-router';
 import PriorityIndicator from './PriorityIndicator';
 
-export default function Note({data}) {
+export default function NoteCard({data}) {
   return (
     data === "spacing data" ? (
       <View style={styles.fakeNote}/>
