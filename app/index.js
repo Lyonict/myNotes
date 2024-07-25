@@ -39,17 +39,6 @@ let fakeNotesData = [
   }
 ]
 
-const addPhantomItems = (list) => {
-  if (list.length % 3 === 0) {
-    return list;
-  } else {
-    const phantomItems = Array.from({ length: 3 - (list.length % 3) }).map(() => ("spacing data"));
-    return list.concat(phantomItems);
-  }
-}
-
-fakeNotesData = addPhantomItems(fakeNotesData);
-
 export default function Index() {
   const navigation = useNavigation();
 
@@ -57,24 +46,40 @@ export default function Index() {
   const [normalNotes, setNormalNotes] = useState([]);
   const [reminderNotes, setReminderNotes] = useState([]);
 
-  const sortNotes = (notes) => {
-    const importantNotes = notes.filter(note => note.priority === 1);
-    const normalNotes = notes.filter(note => note.priority === 2);
-    const reminderNotes = notes.filter(note => note.priority === 3);
+  const importanceArray = [
+    { title: "Important", priority: 1, setFunction:setImportantNotes },
+    { title: "Normal", priority: 2, setFunction:setNormalNotes },
+    { title: "Reminder", priority: 3, setFunction:setReminderNotes },
+  ]
 
-    setImportantNotes(importantNotes);
-    setNormalNotes(normalNotes);
-    setReminderNotes(reminderNotes);
+  const addPhantomItems = (list) => {
+    if (list.length % 3 === 0) {
+      return list;
+    } else {
+      const phantomItems = Array.from({ length: 3 - (list.length % 3) }).map(() => ("spacing data"));
+      return list.concat(phantomItems);
+    }
+  }
+
+  // We'll want to sort the notes by date later, so we do the legwork now
+  const sortNotes = (notesToSort, priority, setFunction) => {
+    let sortedNotes = notesToSort.filter(note => note.priority === priority);
+    sortedNotes = addPhantomItems(sortedNotes);
+    setFunction(sortedNotes);
   };
 
   useEffect(() => {
     navigation.setOptions({headerShown: false});
-    sortNotes(fakeNotesData);
+    for (let importanceCategory of importanceArray) {
+      sortNotes(fakeNotesData, importanceCategory.priority, importanceCategory.setFunction);
+    }
   }, []);
 
   return (
     <BaseLayout>
-      <NoteList notesData={importantNotes} />
+      <NoteList notesData={importantNotes} title="Important" />
+      <NoteList notesData={normalNotes} title="Normal" />
+      <NoteList notesData={reminderNotes} title="Reminder" />
     </BaseLayout>
   );
 }
