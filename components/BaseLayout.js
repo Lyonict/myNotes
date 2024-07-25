@@ -1,11 +1,11 @@
-import { SafeAreaView, View, StyleSheet } from "react-native"
+import { SafeAreaView, StyleSheet, ScrollView } from "react-native"
 
 export default function BaseLayout({ children}) {
   return (
     <SafeAreaView>
-      <View style={styles.baseContainer}>
+      <ScrollView style={styles.baseContainer}>
         {children}
-      </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
