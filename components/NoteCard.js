@@ -1,13 +1,16 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native'
-import { router } from 'expo-router';
+import { useNavigation } from 'expo-router';
 import PriorityIndicator from './PriorityIndicator';
 
 export default function NoteCard({data}) {
+  const navigation = useNavigation();
+
   return (
+    // Required for the FlatList to render correctly
     data === "spacing data" ? (
       <View style={styles.fakeNote}/>
      ) : (
-    <Pressable style={styles.note} onPress={() => {router.push('note');} }>
+    <Pressable style={styles.note} onPress={() => {navigation.navigate(`note`, data);} }>
       <Text style={styles.noteTitle} numberOfLines={3}>{data.title}</Text>
         <View style={styles.noteBottomInfo}>
           <Text style={styles.noteDate}>{data.creationDate}</Text>
