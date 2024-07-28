@@ -7,7 +7,7 @@ import NoteList from "../components/NoteList";
 let fakeNotesData = [
   {
     id: 1,
-    title: "Note 1",
+    title: "Note 1 that keeps on going and going and going and going",
     creationDate: "2021-01-01",
     modificationDate: null,
     content: "This is the note content",
