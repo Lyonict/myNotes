@@ -1,0 +1,90 @@
+[
+  {
+    "id": "11edc52b-2918-4d71-9058-f7285e29d894",
+    "title": "Summary of meeting about the new project",
+    "creationDate": "28/07/2024",
+    "modificationDate": null,
+    "content": "Here is the tldr of the latest meeting.",
+    "priority": 1
+  },
+  {
+    "id": "11edc52b-2918-4d71-9058-f7285e29d894",
+    "title": "Summary of meeting about the new project",
+    "creationDate": "28/07/2024",
+    "modificationDate": null,
+    "content": "Here is the tldr of the latest meeting.",
+    "priority": 1
+  },
+  {
+    "id": "21afc52b-1928-4d71-9058-f7285e29d895",
+    "title": "Review of quarterly performance",
+    "creationDate": "15/03/2024",
+    "modificationDate": null,
+    "content": "Brief overview of the quarterly performance.",
+    "priority": 2
+  },
+  {
+    "id": "31bec52b-3938-4d71-9058-f7285e29d896",
+    "title": "Plan for marketing campaign",
+    "creationDate": "12/06/2023",
+    "modificationDate": "15/06/2023",
+    "content": "Campaign details and next steps.",
+    "priority": 1
+  },
+  {
+    "id": "41cdc52b-4948-4d71-9058-f7285e29d897",
+    "title": "Budget allocation for new quarter",
+    "creationDate": "22/04/2024",
+    "modificationDate": null,
+    "content": "Summary of budget distribution.",
+    "priority": 3
+  },
+  {
+    "id": "51dec52b-5958-4d71-9058-f7285e29d898",
+    "title": "Tech team update",
+    "creationDate": "05/07/2024",
+    "modificationDate": "07/07/2024",
+    "content": "Latest updates from the tech team.",
+    "priority": 2
+  },
+  {
+    "id": "61efc52b-6968-4d71-9058-f7285e29d899",
+    "title": "Client feedback report",
+    "creationDate": "11/08/2023",
+    "modificationDate": null,
+    "content": "Key takeaways from client feedback.",
+    "priority": 1
+  },
+  {
+    "id": "71ffc52b-7978-4d71-9058-f7285e29d800",
+    "title": "Sales strategy discussion",
+    "creationDate": "25/09/2023",
+    "modificationDate": "28/09/2023",
+    "content": "Summary of the sales strategy meeting.",
+    "priority": 2
+  },
+  {
+    "id": "81a0c52b-8988-4d71-9058-f7285e29d801",
+    "title": "Update on product launch",
+    "creationDate": "10/01/2024",
+    "modificationDate": null,
+    "content": "Details about the product launch.",
+    "priority": 1
+  },
+  {
+    "id": "01c2c52b-1111-4d71-9058-f7285e29d803",
+    "title": "Customer service improvements",
+    "creationDate": "07/02/2024",
+    "modificationDate": null,
+    "content": "Brief on customer service enhancements.",
+    "priority": 1
+  },
+  {
+    "id": "02d3c52b-2121-4d71-9058-f7285e29d804",
+    "title": "Project roadmap update",
+    "creationDate": "16/05/2024",
+    "modificationDate": "18/05/2024",
+    "content": "Updates on the project roadmap.",
+    "priority": 2
+  }
+]
