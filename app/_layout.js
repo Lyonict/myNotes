@@ -26,15 +26,6 @@ export default function RootLayout() {
           size={24}
         />),
       }} />
-      <Stack.Screen
-      name="createNote"
-      options={{ title: "",
-      headerRight: () => (
-        <FontAwesome6
-          name="check"
-          size={24}
-          color="black" />),
-      }} />
     </Stack>
   );
 }

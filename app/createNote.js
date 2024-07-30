@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { Stack } from 'expo-router';
 
 import DropDownPicker from 'react-native-dropdown-picker';
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, FontAwesome6 } from '@expo/vector-icons';
 
 import BaseLayout from '../components/BaseLayout'
 
@@ -20,6 +21,15 @@ export default function createNote() {
 
   return (
     <BaseLayout>
+      <Stack.Screen
+        title=""
+        options={{ title:"",
+        headerRight: () => (
+          <FontAwesome6
+            name="check"
+            size={24}
+            color="black" />),
+      }} />
       <View>
         <Text style={styles.inputLabel}>Title</Text>
         <TextInput style={styles.simpleTextInput} onChangeText={title => setTitle(title)} defaultValue={title}/>
