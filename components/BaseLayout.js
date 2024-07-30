@@ -13,5 +13,6 @@ export default function BaseLayout({ children}) {
 const styles = StyleSheet.create({
   baseContainer: {
     padding: 16,
+    overflow: 'visible'
   },
 });
