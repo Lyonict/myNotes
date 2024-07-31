@@ -4,11 +4,9 @@ import { useNavigation } from "expo-router";
 import BaseLayout from "../components/BaseLayout";
 import NoteList from "../components/NoteList";
 
-const fakeLocalData = require('../assets/fakedata.json');
+import { getData } from "../hooks/useAsyncData";
 
 export default function Index() {
-  const navigation = useNavigation();
-
   const [fakeNotesData, setFakeNotesData] = useState([]);
   const [importantNotes, setImportantNotes] = useState([]);
   const [normalNotes, setNormalNotes] = useState([]);
@@ -44,8 +42,9 @@ export default function Index() {
   };
 
   useEffect(() => {
-    setFakeNotesData(fakeLocalData);
-    sortAllNotes();
+    getData("myNotesData")
+    .then((data) => {setFakeNotesData(data)})
+    .then(() => {sortAllNotes()});
   }, [notesAreSorted]);
 
   return (
