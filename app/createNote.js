@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native'
-import { Stack } from 'expo-router';
+import { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native'
+import { router, Stack } from 'expo-router';
 
 import DropDownPicker from 'react-native-dropdown-picker';
+import uuid from 'react-native-uuid'
 import { Entypo, FontAwesome6 } from '@expo/vector-icons';
 
 import BaseLayout from '../components/BaseLayout'
@@ -19,16 +20,50 @@ export default function createNote() {
   ]);
   const [content, setContent] = useState('');
 
+  // We don't check content, because the user is allowed to create a note without content
+  const dataToCheck = [title, selectedPriority];
+
+  const isValidData = (itemToCheck) => {
+    if (itemToCheck === null || itemToCheck === '') {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+  };
+
+  const handleNoteCreation = () => {
+    for(let item of dataToCheck) {
+      if (!isValidData(item)) {
+        return;
+      }
+    };
+    const newNote = {
+      id: uuid.v4(),
+      title: title,
+      creationDate: getCurrentDate(),
+      modificationDate: null,
+      content: content,
+      priority: selectedPriority,
+    };
+    router.back();
+  };
+
   return (
     <BaseLayout>
       <Stack.Screen
-        title=""
         options={{ title:"",
         headerRight: () => (
-          <FontAwesome6
+          <Pressable onPress={() => handleNoteCreation()}>
+            <FontAwesome6
             name="check"
             size={24}
-            color="black" />),
+            color="black" />
+          </Pressable>),
       }} />
       <View>
         <Text style={styles.inputLabel}>Title</Text>
