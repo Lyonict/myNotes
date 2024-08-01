@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useNavigation } from "expo-router";
+import { useFocusEffect } from "expo-router";
+import { useState, useCallback, useEffect } from "react";
 
 import BaseLayout from "../components/BaseLayout";
 import NoteList from "../components/NoteList";
@@ -7,11 +7,10 @@ import NoteList from "../components/NoteList";
 import { getData } from "../hooks/useAsyncData";
 
 export default function Index() {
-  const [fakeNotesData, setFakeNotesData] = useState([]);
+  const [notesData, setNotesData] = useState([]);
   const [importantNotes, setImportantNotes] = useState([]);
   const [normalNotes, setNormalNotes] = useState([]);
   const [reminderNotes, setReminderNotes] = useState([]);
-  const [notesAreSorted, setNotesAreSorted] = useState(false);
 
   const importanceArray = [
     { title: "Important", priority: 1, setFunction:setImportantNotes },
@@ -36,16 +35,27 @@ export default function Index() {
 
   const sortAllNotes = () => {
     for (let importanceCategory of importanceArray) {
-      sortNotes(fakeNotesData, importanceCategory.priority, importanceCategory.setFunction);
+      sortNotes(notesData, importanceCategory.priority, importanceCategory.setFunction);
     }
-    setNotesAreSorted(true);
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      getData("myNotesData")
+      .then((data) => {
+        setNotesData(data);
+      })
+      .catch((e) => {
+        alert("Error fetching notes data");
+      });
+    }, [])
+  );
+
   useEffect(() => {
-    getData("myNotesData")
-    .then((data) => {setFakeNotesData(data)})
-    .then(() => {sortAllNotes()});
-  }, [notesAreSorted]);
+    if (notesData.length > 0) {
+      sortAllNotes();
+    }
+  }, [notesData]);
 
   return (
     <BaseLayout>

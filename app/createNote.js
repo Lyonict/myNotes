@@ -8,6 +8,8 @@ import { Entypo, FontAwesome6 } from '@expo/vector-icons';
 
 import BaseLayout from '../components/BaseLayout'
 
+import { getData, storeData } from '../hooks/useAsyncData';
+
 
 export default function createNote() {
   const [title, setTitle] = useState('');
@@ -36,7 +38,7 @@ export default function createNote() {
     return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
   };
 
-  const handleNoteCreation = () => {
+  const handleNoteCreation = async () => {
     for(let item of dataToCheck) {
       if (!isValidData(item)) {
         return;
@@ -50,7 +52,18 @@ export default function createNote() {
       content: content,
       priority: selectedPriority,
     };
-    router.back();
+
+    getData('myNotesData')
+    .then((data) => {
+      data.push(newNote);
+      storeData('myNotesData', data);
+    })
+    .then(() => {
+      router.back();
+    })
+    .catch((e) => {
+      alert("Error saving note");
+    });
   };
 
   return (
