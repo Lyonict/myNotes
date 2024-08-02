@@ -43,15 +43,17 @@ export default function Note() {
   return (
     <BaseLayout>
       <Stack.Screen
-        options={{ title: "",
-        headerRight: () => (
-          <Pressable onPress={() => navigation.navigate({name:`createNote`, params:noteData})}>
-            <Feather
-              name="edit"
-              size={24}
-            />
-          </Pressable>),
-        }} />
+        options={{
+          title: "",
+          headerBackTitle: "Notes", // Customize the back button text
+          headerRight: () => (
+            <Pressable onPress={() => navigation.navigate({name:`createNote`, params:noteData})}>
+              <Feather
+                name="edit"
+                size={24}
+              />
+            </Pressable>),
+          }} />
       {noteData &&
         <View>
           <View style={styles.noteHeader}>
