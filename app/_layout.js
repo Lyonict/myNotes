@@ -1,4 +1,4 @@
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 
 import Feather from '@expo/vector-icons/Feather';
 
@@ -7,16 +7,15 @@ export default function RootLayout() {
     <Stack>
       <Stack.Screen
       name="index"
-      />
-      <Stack.Screen
-      name="note"
       options={{ title: "",
       headerRight: () => (
+        <Link href="createNote">
         <Feather
           name="edit"
           size={24}
-        />),
-      }} />
+        />
+        </Link>
+       )}}/>
     </Stack>
   );
 }
