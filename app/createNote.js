@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 22,
     marginBottom: 10,
+    color: 'white',
   },
   simpleTextInput: {
     backgroundColor: "#fff",

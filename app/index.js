@@ -59,9 +59,13 @@ export default function Index() {
 
   return (
     <BaseLayout>
-      <NoteList notesData={importantNotes} title="Important" />
-      <NoteList notesData={normalNotes} title="Normal" />
-      <NoteList notesData={reminderNotes} title="Reminder" />
+      {notesData &&
+        <>
+          <NoteList notesData={importantNotes} title="Important" />
+          <NoteList notesData={normalNotes} title="Normal" />
+          <NoteList notesData={reminderNotes} title="Reminder" />
+        </>
+      }
     </BaseLayout>
   );
 }

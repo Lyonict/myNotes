@@ -73,18 +73,18 @@ export default function Note() {
                 }
                 {
                   noteData.priority &&
-                  <PriorityIndicator style={styles.noteInfoData} priority={noteData.priority} />
+                  <PriorityIndicator style={styles.noteInfoData} priority={noteData.priority} isChip={true} />
                 }
               </View>
             </View>
             <View style={styles.deleteNoteBtnContainer}>
               <Pressable style={styles.deleteNoteBtn} onPress={() => handleNoteDeletion()}>
-                <FontAwesome name="trash-o" size={24} color="black" />
+                <FontAwesome name="trash-o" size={24} color="#F45B69" />
             </Pressable>
             </View>
           </View>
           <View>
-            <Text>
+            <Text style={styles.noteContent}>
               {noteData.content}
             </Text>
           </View>
@@ -97,7 +97,6 @@ export default function Note() {
 const styles = StyleSheet.create({
   noteHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
     paddingBottom: 5,
@@ -109,6 +108,7 @@ const styles = StyleSheet.create({
   noteTitle: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: 'white',
   },
   noteInfo: {
     display: 'inline-block',
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   },
   noteInfoData: {
     marginEnd: 5,
+    color: 'white',
   },
   modifiedDot: {
     marginStart: -10,
@@ -131,6 +132,10 @@ const styles = StyleSheet.create({
     borderColor: '#E0E0E0',
     backgroundColor: '#F1F0F0',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 8,
+  },
+  noteContent: {
+    fontSize: 16,
+    color: 'white',
   },
 });

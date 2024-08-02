@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 16,
+    color: 'white',
   },
   note: {
     backgroundColor: '#E0E0E0',

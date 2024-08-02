@@ -23,7 +23,7 @@ export default function NoteCard({data}) {
 
 styles = StyleSheet.create({
   note: {
-    backgroundColor: '#E0E0E0',
+    backgroundColor: 'white',
     borderRadius: 12,
     padding: 10,
     flex: 1,
