@@ -43,7 +43,7 @@ export default function createNote() {
 
   const getCurrentDate = () => {
     const date = new Date();
-    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+    return date.toLocaleDateString('en-GB'); // formats the date as dd/mm/yyyy
   };
 
   const handleNoteCreation = async () => {
