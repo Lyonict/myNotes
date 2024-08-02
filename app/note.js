@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
-import { useLocalSearchParams, router } from "expo-router";
+import { Stack, useLocalSearchParams, router, useNavigation, useFocusEffect } from "expo-router";
 
 import { Entypo } from '@expo/vector-icons';
 
@@ -8,12 +8,15 @@ import BaseLayout from "../components/BaseLayout";
 import PriorityIndicator from "../components/PriorityIndicator";
 
 import { getData, storeData } from '../hooks/useAsyncData';
+import { sanitizeNoteData } from "../hooks/useSanitizeNoteData";
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Feather from '@expo/vector-icons/Feather';
 
 
 export default function Note() {
   const rawNoteData = useLocalSearchParams();
+  const navigation = useNavigation();
 
   const [noteData, setNoteData] = useState(null);
 
@@ -32,18 +35,23 @@ export default function Note() {
   };
 
   useEffect(() => {
-    setNoteData(sanitizeNoteData(rawNoteData));
+    if (rawNoteData) {
+      setNoteData(sanitizeNoteData(rawNoteData));
+    }
   }, []);
-
-  const sanitizeNoteData = (rawData) => {
-    return {
-      ...rawData,
-      priority: Number(rawData.priority),
-    };
-  };
 
   return (
     <BaseLayout>
+      <Stack.Screen
+        options={{ title: "",
+        headerRight: () => (
+          <Pressable onPress={() => navigation.navigate({name:`createNote`, params:noteData})}>
+            <Feather
+              name="edit"
+              size={24}
+            />
+          </Pressable>),
+        }} />
       {noteData &&
         <View>
           <View style={styles.noteHeader}>

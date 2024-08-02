@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable } from 'react-native'
-import { router, Stack } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 
 import DropDownPicker from 'react-native-dropdown-picker';
 import uuid from 'react-native-uuid'
@@ -9,18 +9,26 @@ import { Entypo, FontAwesome6 } from '@expo/vector-icons';
 import BaseLayout from '../components/BaseLayout'
 
 import { getData, storeData } from '../hooks/useAsyncData';
+import { sanitizeNoteData } from '../hooks/useSanitizeNoteData';
 
 
 export default function createNote() {
+  const rawNoteData = useLocalSearchParams();
+  const [noteData, setNoteData] = useState(null);
+
+  const [noteId, setNoteId] = useState(null);
   const [title, setTitle] = useState('');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [creationDate, setCreationDate] = useState(null);
+  const [modificationDate, setModificationDate] = useState(null);
+  const [content, setContent] = useState('');
   const [selectedPriority, setSelectedPriority] = useState(null);
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [droptdownItems, setDroptdownItems] = useState([
     {label: 'Important', value: 1, icon: () => <Entypo name="dot-single" size={24} color="red" />},
     {label: 'Normal', value: 2, icon: () => <Entypo name="dot-single" size={24} color="orange" />},
     {label: 'Reminder', value: 3, icon: () => <Entypo name="dot-single" size={24} color="grey" />}
   ]);
-  const [content, setContent] = useState('');
 
   // We don't check content, because the user is allowed to create a note without content
   const dataToCheck = [title, selectedPriority];
@@ -40,31 +48,70 @@ export default function createNote() {
 
   const handleNoteCreation = async () => {
     for(let item of dataToCheck) {
-      if (!isValidData(item)) {
+      if (!isValidData(item) || isNaN(selectedPriority)) {
         return;
       }
     };
-    const newNote = {
-      id: uuid.v4(),
+
+    const newNoteData = {
+      id: noteId,
       title: title,
-      creationDate: getCurrentDate(),
-      modificationDate: null,
+      creationDate: creationDate,
+      modificationDate: modificationDate,
       content: content,
       priority: selectedPriority,
     };
 
     getData('myNotesData')
     .then((data) => {
-      data.push(newNote);
+      if(noteData) {
+        // Editing existing note
+        data.splice(data.findIndex(note => note.id === noteId), 1, newNoteData);
+      } else {
+        // Adding new note to the data
+        data.push(newNoteData);
+      }
       storeData('myNotesData', data);
     })
     .then(() => {
-      router.back();
+      router.navigate({name: 'index'});
     })
     .catch((e) => {
       alert("Error saving note");
     });
   };
+
+  const fillNoteDataIfCreating = async () => {
+    try {
+      setNoteId(uuid.v4());
+      setCreationDate(getCurrentDate());
+    } catch(e) {
+      alert("Error generating note data");
+    };
+  }
+
+  const fillNoteDataIfEditing = async () => {
+    try {
+      const sanitizedData = sanitizeNoteData(rawNoteData);
+      setNoteData(sanitizedData);
+      setNoteId(sanitizedData.id);
+      setTitle(sanitizedData.title);
+      setCreationDate(sanitizedData.creationDate);
+      setModificationDate(getCurrentDate());
+      setSelectedPriority(sanitizedData.priority);
+      setContent(sanitizedData.content);
+    } catch(e) {
+      alert("Error fetching note data");
+    };
+  };
+
+  useEffect(() => {
+    if (rawNoteData && Object.keys(rawNoteData).length > 0) {
+      fillNoteDataIfEditing();
+    } else {
+      fillNoteDataIfCreating();
+    }
+  }, []);
 
   return (
     <BaseLayout>
@@ -80,7 +127,7 @@ export default function createNote() {
       }} />
       <View>
         <Text style={styles.inputLabel}>Title</Text>
-        <TextInput style={styles.simpleTextInput} onChangeText={title => setTitle(title)} defaultValue={title}/>
+        <TextInput style={styles.simpleTextInput} onChangeText={title => setTitle(title)} value={title}/>
       </View>
       <Text style={styles.inputLabel}>Priority</Text>
       <DropDownPicker
